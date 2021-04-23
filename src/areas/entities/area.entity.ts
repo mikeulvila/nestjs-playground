@@ -1,12 +1,12 @@
 import {
   Column,
-  Entity,
+  Entity, JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
   Tree,
   TreeChildren,
-  TreeParent,
-} from 'typeorm';
+  TreeParent
+} from "typeorm";
 import { AreaTag } from './area-tag.entity';
 
 @Entity()
@@ -18,15 +18,16 @@ export class Area {
   @Column()
   name: string;
 
-  @Column()
-  workspaceId: number;
-
   @TreeParent()
   parent: Area;
 
   @TreeChildren()
   children: Area[];
 
-  @ManyToMany(() => AreaTag, (tag) => tag.areas)
+  @ManyToMany(() => AreaTag, (areaTag) => areaTag.areas, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinTable()
   tags: AreaTag[];
 }

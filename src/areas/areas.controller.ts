@@ -2,18 +2,24 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { AreasService } from './areas.service';
 import { CreateAreaDto } from './dto/create-area.dto';
 import { UpdateAreaDto } from './dto/update-area.dto';
+import { CreateAreaTagDto } from './dto/create-area-tag.dto';
 
 @Controller('areas')
 export class AreasController {
   constructor(private readonly areasService: AreasService) {}
 
   @Post()
-  create(@Body() createAreaDto: CreateAreaDto) {
+  async create(@Body() createAreaDto: CreateAreaDto) {
     return this.areasService.create(createAreaDto);
   }
 
+  @Post('tags')
+  async createAreaTags(@Body() createAreaTagDto: CreateAreaTagDto) {
+    return this.areasService.createAreaTags(createAreaTagDto);
+  }
+
   @Get()
-  findAll() {
+  async findAll() {
     return this.areasService.findAll();
   }
 
