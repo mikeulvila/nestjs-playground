@@ -24,10 +24,7 @@ export class Area {
   @TreeChildren()
   children: Area[];
 
-  @ManyToMany(() => AreaTag, (areaTag) => areaTag.areas, {
-    cascade: true,
-    eager: true,
-  })
+  @ManyToMany(() => AreaTag, (areaTag) => areaTag.areas)
   @JoinTable()
   tags: AreaTag[];
 }
